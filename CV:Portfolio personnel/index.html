@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ahmed Yassine Lamiasser – Portfolio & CV</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0f0e0c;
+      --cream: #f5f0e8;
+      --rust: #c0392b;
+      --gold: #d4a843;
+      --muted: #6b6560;
+      --card: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.7; }
+
+    .skip-link { position:absolute;top:-100%;left:1rem;background:var(--rust);color:#fff;padding:.5rem 1rem;border-radius:0 0 6px 6px;font-weight:500;z-index:9999;transition:top .2s; }
+    .skip-link:focus { top:0; }
+
+    header { background:var(--ink);color:var(--cream);position:sticky;top:0;z-index:100; }
+    nav { max-width:960px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem; }
+    .logo { font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);text-decoration:none; }
+    nav ul { list-style:none;display:flex;gap:2rem; }
+    nav a { color:var(--cream);text-decoration:none;font-size:.9rem;font-weight:500;letter-spacing:.05em;transition:color .2s; }
+    nav a:hover, nav a:focus { color:var(--gold); }
+
+    .hero { max-width:960px;margin:5rem auto 3rem;padding:0 2rem;display:grid;grid-template-columns:1fr 260px;gap:3rem;align-items:center; }
+    @media (max-width:680px) { .hero { grid-template-columns:1fr; } .hero-photo { width:160px;height:200px;margin:auto; } }
+
+    .hero-subtitle { font-size:.9rem;font-weight:500;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.8rem; }
+    .hero-text h1 { font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);line-height:1.1;margin-bottom:.8rem; }
+    .hero-text h1 span { color:var(--rust); }
+    .hero-text p { font-size:1rem;color:var(--muted);max-width:480px;margin-bottom:2rem; }
+    .hero-btns { display:flex;gap:1rem;flex-wrap:wrap; }
+    .btn { display:inline-block;padding:.7rem 1.8rem;border-radius:3px;text-decoration:none;font-weight:500;font-size:.9rem;transition:background .2s; }
+    .btn-primary { background:var(--rust);color:#fff; }
+    .btn-primary:hover { background:#a93226; }
+    .btn-outline { border:2px solid var(--ink);color:var(--ink); }
+    .btn-outline:hover { background:var(--ink);color:var(--cream); }
+    .hero-photo { width:260px;height:320px;object-fit:cover;border-radius:6px;box-shadow:8px 8px 0 var(--gold); }
+
+    main { max-width:960px;margin:auto;padding:0 2rem 5rem; }
+    section { margin-bottom:5rem; }
+    h2 { font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:2rem;padding-bottom:.5rem;border-bottom:3px solid var(--rust);display:inline-block; }
+
+    #apropos p { color:var(--muted);font-size:1.05rem;max-width:720px; }
+
+    .skills-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem; }
+    .skill-card { background:var(--card);border-left:4px solid var(--rust);padding:1rem 1.2rem;border-radius:3px;box-shadow:0 2px 8px rgba(0,0,0,.06); }
+    .skill-card h3 { font-size:.78rem;font-weight:500;color:var(--muted);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.08em; }
+    .skill-card p { font-size:.92rem;font-weight:500;line-height:1.6; }
+
+    .projects-list { display:flex;flex-direction:column;gap:1.5rem; }
+    .project-card { background:var(--card);border-radius:6px;padding:1.5rem 1.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06);border-left:4px solid var(--gold); }
+    .project-card h3 { font-size:1.05rem;font-weight:500;margin-bottom:.3rem; }
+    .project-tag { font-size:.75rem;color:var(--gold);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem;display:block; }
+    .project-card ul { padding-left:1.2rem;color:var(--muted);font-size:.92rem; }
+    .project-card li { margin-bottom:.25rem; }
+
+    .table-wrapper { overflow-x:auto; }
+    table { width:100%;border-collapse:collapse;font-size:.95rem;background:var(--card);box-shadow:0 2px 8px rgba(0,0,0,.06);border-radius:6px;overflow:hidden; }
+    thead { background:var(--ink);color:var(--cream); }
+    th, td { padding:.9rem 1.2rem;text-align:left;border-bottom:1px solid #eee; }
+    th { font-size:.8rem;letter-spacing:.06em;text-transform:uppercase; }
+    tbody tr:last-child td { border-bottom:none; }
+    tbody tr:hover { background:#fdf8f0; }
+
+    .engage-list { list-style:none;display:flex;flex-direction:column;gap:.8rem; }
+    .engage-list li { background:var(--card);padding:.9rem 1.2rem;border-radius:4px;font-size:.95rem;box-shadow:0 2px 6px rgba(0,0,0,.05);display:flex;align-items:flex-start;gap:.8rem; }
+    .engage-list li::before { content:'✦';color:var(--gold);flex-shrink:0;margin-top:.15rem; }
+
+    .two-col-grid { display:grid;grid-template-columns:1fr 1fr;gap:3rem; }
+    @media (max-width:600px) { .two-col-grid { grid-template-columns:1fr; } }
+
+    .lang-item { display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem;padding-bottom:.8rem;border-bottom:1px solid #eee; }
+    .lang-item:last-child { border-bottom:none; }
+    .lang-item span:first-child { font-weight:500; }
+    .lang-badge { background:var(--ink);color:var(--cream);font-size:.75rem;padding:.2rem .7rem;border-radius:99px;font-weight:500; }
+
+    .qual-list { list-style:none; }
+    .qual-list li { padding:.5rem 0;border-bottom:1px solid #eee;font-size:.95rem;color:var(--muted); }
+    .qual-list li::before { content:'→ ';color:var(--rust);font-weight:700; }
+
+    .social-links { display:flex;gap:1rem;flex-wrap:wrap; }
+    .social-link { display:inline-flex;align-items:center;gap:.5rem;background:var(--ink);color:var(--cream);padding:.6rem 1.4rem;border-radius:3px;text-decoration:none;font-size:.9rem;font-weight:500;transition:background .2s; }
+    .social-link:hover, .social-link:focus { background:var(--rust); }
+
+    footer { background:var(--ink);color:var(--muted);text-align:center;padding:2rem;font-size:.9rem; }
+    footer span { color:var(--gold); }
+  </style>
+</head>
+<body>
+
+  <a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
+
+  <header>
+    <nav aria-label="Navigation principale">
+      <a href="#" class="logo" aria-label="Lamiasser Ahmed Yassine – Accueil">LAY.</a>
+      <ul>
+        <li><a href="#apropos">À propos</a></li>
+        <li><a href="#competences">Compétences</a></li>
+        <li><a href="#projets">Projets</a></li>
+        <li><a href="#parcours">Parcours</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="hero" role="banner">
+    <div class="hero-text">
+      <p class="hero-subtitle">Élève ingénieur en informatique · AIAC Casablanca</p>
+      <h1>Lamiasser<br /><span>Ahmed Yassine</span></h1>
+      <p>
+        Passionné par le développement logiciel et l'administration systèmes.
+        Solide base scientifique issue des CPGE MP.
+        À la recherche d'un stage d'observation ou d'initiation.
+      </p>
+      <div class="hero-btns">
+        <a href="#projets" class="btn btn-primary">Voir mes projets</a>
+        <a href="#contact" class="btn btn-outline">Me contacter</a>
+      </div>
+    </div>
+    <img
+      src="https://placehold.co/260x320/0f0e0c/d4a843?text=LAY"
+      alt="Photo de profil de Ahmed Yassine Lamiasser, élève ingénieur en informatique à l'AIAC"
+      class="hero-photo"
+      width="260" height="320"
+    />
+  </div>
+
+  <main id="contenu-principal">
+
+    <!-- À PROPOS -->
+    <section id="apropos" aria-labelledby="titre-apropos">
+      <h2 id="titre-apropos">À propos</h2>
+      <p>
+        Élève ingénieur en première année à l'<strong>AIAC – Académie Internationale Mohammed VI de l'Aviation Civile</strong>
+        à Casablanca, je suis passionné par le développement logiciel et l'administration systèmes.
+        Doté d'une solide base scientifique issue des <strong>CPGE MP</strong> au Lycée Moulay Youssef de Rabat,
+        je possède une grande capacité d'apprentissage et une rigueur technique éprouvée.
+        Je souhaite découvrir le milieu professionnel, développer mes compétences techniques
+        et contribuer activement à des projets concrets.
+      </p>
+    </section>
+
+    <!-- COMPÉTENCES -->
+    <section id="competences" aria-labelledby="titre-competences">
+      <h2 id="titre-competences">Compétences techniques</h2>
+      <ul class="skills-grid" aria-label="Liste des compétences techniques">
+        <li class="skill-card">
+          <h3>Langages</h3>
+          <p>C · C++ · Java · Python · HTML5/CSS3 · JavaScript · SQL · Bash · Assembleur</p>
+        </li>
+        <li class="skill-card">
+          <h3>Outils & DevOps</h3>
+          <p>Git · GitHub · Docker · VS Code · Oracle Database · Serveur Apache</p>
+        </li>
+        <li class="skill-card">
+          <h3>Systèmes & Réseaux</h3>
+          <p>Linux (Ubuntu/Debian) · Administration Système · Protocoles Réseaux · SSH</p>
+        </li>
+        <li class="skill-card">
+          <h3>Méthodologies</h3>
+          <p>POO · Modélisation UML · Algorithmique avancée</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- PROJETS -->
+    <section id="projets" aria-labelledby="titre-projets">
+      <h2 id="titre-projets">Projets académiques & techniques</h2>
+      <div class="projects-list">
+
+        <article class="project-card">
+          <span class="project-tag">Projet de Recherche – TIPE</span>
+          <h3>Transmission de données par Li-Fi</h3>
+          <ul>
+            <li>Conception d'un prototype de transmission audio par lumière visible via modulation PWM</li>
+            <li>Modélisation de la réponse fréquentielle et analyse de l'atténuation du signal (1/d²)</li>
+            <li>Réalisation des circuits émetteur/récepteur — optimisation du SNR à ≈ 18 dB sous bruit ambiant</li>
+            <li>Utilisation d'Arduino pour le traitement de signal — comparaison OOK, PWM et FSK</li>
+          </ul>
+        </article>
+
+        <article class="project-card">
+          <span class="project-tag">Projet POO – C++</span>
+          <h3>Système de gestion de bibliothèque</h3>
+          <ul>
+            <li>Application de gestion de stock et d'emprunts en C++</li>
+            <li>Mise en œuvre de l'héritage, du polymorphisme et de la gestion dynamique de la mémoire</li>
+          </ul>
+        </article>
+
+        <article class="project-card">
+          <span class="project-tag">Club IT – AIAC · Python</span>
+          <h3>Data Cleaning & Validation Workflow</h3>
+          <ul>
+            <li>Automatisation du nettoyage de jeux de données complexes via Pandas</li>
+            <li>Suppression de doublons, gestion des valeurs manquantes, normalisation des formats</li>
+            <li>Réduction du temps de traitement manuel de <strong>70%</strong></li>
+          </ul>
+        </article>
+
+        <article class="project-card">
+          <span class="project-tag">Systèmes d'Exploitation – C</span>
+          <h3>Simulateur de synchronisation – Problème des Philosophes</h3>
+          <ul>
+            <li>Résolution des problématiques d'interblocage (Deadlock) et de famine (Starvation)</li>
+            <li>Utilisation des threads POSIX et des sémaphores pour la gestion de la concurrence</li>
+          </ul>
+        </article>
+
+        <article class="project-card">
+          <span class="project-tag">Infrastructure</span>
+          <h3>Déploiement d'un Blog Statique & Administration Serveur</h3>
+          <ul>
+            <li>Configuration d'un serveur Apache sous Ubuntu pour héberger un site HTML/CSS</li>
+            <li>Mise en place d'un workflow de déploiement via Git et tests de disponibilité (A/B testing)</li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- FORMATIONS -->
+    <section id="parcours" aria-labelledby="titre-parcours">
+      <h2 id="titre-parcours">Formations</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Période</th>
+              <th scope="col">Diplôme / Formation</th>
+              <th scope="col">Établissement</th>
+              <th scope="col">Mention</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2025 – présent</td>
+              <td>Cycle Ingénieur – Génie Informatique</td>
+              <td>AIAC – Académie Internationale Mohammed VI de l'Aviation Civile, Casablanca</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>2023 – 2025</td>
+              <td>CPGE – Mathématiques Physique (MP)</td>
+              <td>Lycée Moulay Youssef, Rabat</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>2023</td>
+              <td>Baccalauréat Sciences Mathématiques A</td>
+              <td>Maroc</td>
+              <td>Très Bien</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4" style="font-size:.82rem;color:#999;padding:.8rem 1.2rem;">CV mis à jour en 2025</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <!-- ENGAGEMENT ASSOCIATIF -->
+    <section id="engagement" aria-labelledby="titre-engagement">
+      <h2 id="titre-engagement">Engagement associatif</h2>
+      <ul class="engage-list" aria-label="Activités associatives">
+        <li><strong>Club IT – AIAC :</strong> Membre actif, participation aux ateliers de développement et aux coding challenges</li>
+        <li><strong>Aerolec Club :</strong> Contribution à l'organisation d'événements techniques liés à l'avionique</li>
+        <li><strong>Paradisier Club :</strong> Membre du pôle événementiel, développement de l'esprit d'équipe et logistique</li>
+      </ul>
+    </section>
+
+    <!-- LANGUES & QUALITÉS -->
+    <section id="langues" aria-labelledby="titre-langues">
+      <h2 id="titre-langues">Langues & Qualités</h2>
+      <div class="two-col-grid">
+        <div>
+          <h3 style="font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.2rem;">Langues</h3>
+          <div class="lang-item">
+            <span>Arabe</span>
+            <span class="lang-badge">Maternel</span>
+          </div>
+          <div class="lang-item">
+            <span>Français</span>
+            <span class="lang-badge">Courant – C1</span>
+          </div>
+          <div class="lang-item">
+            <span>Anglais</span>
+            <span class="lang-badge">Technique – B2</span>
+          </div>
+        </div>
+        <div>
+          <h3 style="font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.2rem;">Qualités</h3>
+          <ul class="qual-list" aria-label="Qualités personnelles">
+            <li>Esprit d'analyse et rigueur</li>
+            <li>Capacité d'adaptation rapide</li>
+            <li>Autonomie et sens de l'organisation</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" aria-labelledby="titre-contact">
+      <h2 id="titre-contact">Me contacter</h2>
+      <nav aria-label="Liens de contact et réseaux sociaux">
+        <ul class="social-links">
+          <li>
+            <a href="mailto:ahmedyassinelamiasser@gmail.com" class="social-link" aria-label="Envoyer un email à Ahmed Yassine Lamiasser">
+              ✉ Email
+            </a>
+          </li>
+          <li>
+            <a href="tel:+212713870099" class="social-link" aria-label="Appeler Ahmed Yassine au 07 13 87 00 99">
+              ☎ 07 13 87 00 99
+            </a>
+          </li>
+          <li>
+            <a href="https://linkedin.com/in/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Profil LinkedIn de Ahmed Yassine (s'ouvre dans un nouvel onglet)">
+              ↗ LinkedIn
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Profil GitHub de Ahmed Yassine (s'ouvre dans un nouvel onglet)">
+              ⌥ GitHub
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2025 <span>Ahmed Yassine Lamiasser</span> · AIAC Casablanca · Sidi Slimane, Maroc</p>
+  </footer>
+
+</body>
+</html>

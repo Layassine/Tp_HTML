@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inscription – Toto</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --border: #30363d;
+      --accent: #58a6ff;
+      --accent2: #3fb950;
+      --danger: #f85149;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --radius: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1rem;
+    }
+
+    .skip-link {
+      position: absolute; top: -100%; left: 1rem;
+      background: var(--accent); color: #000;
+      padding: .5rem 1rem; border-radius: var(--radius);
+      font-weight: 500; z-index: 9999; transition: top .2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    header { text-align: center; margin-bottom: 2.5rem; }
+    header h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem;
+      color: var(--accent);
+      letter-spacing: -.02em;
+    }
+    header p { color: var(--muted); margin-top: .5rem; }
+
+    .card {
+      width: 100%;
+      max-width: 720px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+    }
+
+    /* FIELDSET */
+    fieldset {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    legend {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      padding: 0 .5rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    /* GRID */
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+
+    /* FORM GROUP */
+    .form-group { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1rem; }
+    .form-group:last-child { margin-bottom: 0; }
+
+    label {
+      font-size: .85rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: .04em;
+    }
+
+    label .required { color: var(--danger); margin-left: .2rem; }
+
+    input:not([type="radio"]):not([type="checkbox"]):not([type="file"]),
+    select, textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      padding: .65rem .9rem;
+      font-family: 'Inter', sans-serif;
+      font-size: .95rem;
+      width: 100%;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    input:not([type="radio"]):not([type="checkbox"]):not([type="file"]):focus,
+    select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(88,166,255,.15);
+    }
+
+    input:invalid:not(:placeholder-shown) { border-color: var(--danger); }
+    input:valid:not(:placeholder-shown) { border-color: var(--accent2); }
+
+    textarea { resize: vertical; min-height: 100px; }
+
+    /* RADIO & CHECKBOX */
+    .options { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: .3rem; }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      cursor: pointer;
+      color: var(--text);
+      font-size: .95rem;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      accent-color: var(--accent);
+      width: 16px; height: 16px;
+      cursor: pointer;
+    }
+
+    /* FILE */
+    .file-wrapper {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: .9rem;
+      cursor: pointer;
+      transition: border-color .2s;
+    }
+    .file-wrapper:hover { border-color: var(--accent); }
+
+    input[type="file"] {
+      width: 100%;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    /* CGU */
+    .cgu-label {
+      display: flex;
+      align-items: flex-start;
+      gap: .6rem;
+      color: var(--muted);
+      font-size: .9rem;
+      cursor: pointer;
+    }
+    .cgu-label a { color: var(--accent); }
+    .cgu-label input { margin-top: 3px; flex-shrink: 0; }
+
+    /* SUBMIT */
+    .submit-btn {
+      width: 100%;
+      padding: .85rem;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: var(--radius);
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+      margin-top: 1rem;
+    }
+    .submit-btn:hover { background: #79c0ff; }
+    .submit-btn:active { transform: scale(.98); }
+    .submit-btn:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+    /* HINT */
+    .hint { font-size: .78rem; color: var(--muted); }
+
+    /* CHAR COUNT */
+    #bio-counter { float: right; font-size: .78rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+  <a href="#formulaire" class="skip-link">Aller au formulaire</a>
+
+  <header>
+    <h1>Créer un compte</h1>
+  </header>
+
+  <main>
+    <div class="card">
+      <form id="formulaire" action="#" method="post" novalidate>
+
+        <!-- 1. INFORMATIONS PERSONNELLES -->
+        <fieldset>
+          <legend>Informations personnelles</legend>
+          <div class="row">
+            <div class="form-group">
+              <label for="nom">Nom <span class="required" aria-hidden="true">*</span></label>
+              <input
+                type="text" id="nom" name="nom"
+                placeholder="Ex : Lamiasser"
+                required minlength="2"
+                autocomplete="family-name"
+                aria-required="true"
+              />
+            </div>
+            <div class="form-group">
+              <label for="prenom">Prénom <span class="required" aria-hidden="true">*</span></label>
+              <input
+                type="text" id="prenom" name="prenom"
+                placeholder="Ex : Yassine"
+                required minlength="2"
+                autocomplete="given-name"
+                aria-required="true"
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group">
+              <label for="email">Email <span class="required" aria-hidden="true">*</span></label>
+              <input
+                type="email" id="email" name="email"
+                placeholder="yassine@exemple.com"
+                required
+                autocomplete="email"
+                aria-required="true"
+                aria-describedby="email-hint"
+              />
+              <span id="email-hint" class="hint">Votre adresse email valide</span>
+            </div>
+            <div class="form-group">
+              <label for="telephone">Téléphone <span class="required" aria-hidden="true">*</span></label>
+              <input
+                type="tel" id="telephone" name="telephone"
+                placeholder="06 12 34 56 78"
+                required
+                pattern="^(0[67]\d{8}|(\+212)[67]\d{8})$"
+                autocomplete="tel"
+                aria-required="true"
+                aria-describedby="tel-hint"
+              />
+              <span id="tel-hint" class="hint">Format : 06XXXXXXXX ou 07XXXXXXXX</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="dob">Date de naissance <span class="required" aria-hidden="true">*</span></label>
+            <input
+              type="date" id="dob" name="dob"
+              required
+              max="2007-12-31"
+              aria-required="true"
+              aria-describedby="dob-hint"
+            />
+            <span id="dob-hint" class="hint">Vous devez avoir au moins 18 ans</span>
+          </div>
+        </fieldset>
+
+        <!-- 2. SÉCURITÉ -->
+        <fieldset>
+          <legend>Sécurité</legend>
+          <div class="row">
+            <div class="form-group">
+              <label for="password">Mot de passe <span class="required" aria-hidden="true">*</span></label>
+              <input
+                type="password" id="password" name="password"
+                required
+                minlength="8"
+                pattern="^(?=.*[A-Z])(?=.*\d).{8,}$"
+                autocomplete="new-password"
+                aria-required="true"
+                aria-describedby="pwd-hint"
+              />
+              <span id="pwd-hint" class="hint">Min. 8 caractères, 1 majuscule, 1 chiffre</span>
+            </div>
+            <div class="form-group">
+              <label for="password2">Confirmer le mot de passe <span class="required" aria-hidden="true">*</span></label>
+              <input
+                type="password" id="password2" name="password2"
+                required minlength="8"
+                autocomplete="new-password"
+                aria-required="true"
+              />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- 3. LOCALISATION -->
+        <fieldset>
+          <legend>Localisation</legend>
+          <div class="form-group">
+            <label for="pays">Pays <span class="required" aria-hidden="true">*</span></label>
+            <input
+              type="text" id="pays" name="pays"
+              list="pays-list"
+              placeholder="Sélectionnez ou tapez votre pays"
+              required
+              autocomplete="country-name"
+              aria-required="true"
+            />
+            <datalist id="pays-list">
+              <option value="Maroc">
+              <option value="France">
+              <option value="Belgique">
+              <option value="Algérie">
+              <option value="Tunisie">
+              <option value="Canada">
+              <option value="Espagne">
+              <option value="Sénégal">
+            </datalist>
+          </div>
+        </fieldset>
+
+        <!-- 4. PROFIL -->
+        <fieldset>
+          <legend>Profil</legend>
+
+          <div class="form-group">
+            <label>Genre</label>
+            <div class="options" role="radiogroup" aria-label="Sélectionnez votre genre">
+              <label class="option-label">
+                <input type="radio" name="genre" value="homme" required /> Homme
+              </label>
+              <label class="option-label">
+                <input type="radio" name="genre" value="femme" /> Femme
+              </label>
+              <label class="option-label">
+                <input type="radio" name="genre" value="non-binaire" /> Non-binaire
+              </label>
+              <label class="option-label">
+                <input type="radio" name="genre" value="prefere-pas" /> Préfère ne pas préciser
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Centres d'intérêt</label>
+            <div class="options" role="group" aria-label="Sélectionnez vos centres d'intérêt">
+              <label class="option-label"><input type="checkbox" name="interets" value="dev" /> Développement web</label>
+              <label class="option-label"><input type="checkbox" name="interets" value="ia" /> Intelligence artificielle</label>
+              <label class="option-label"><input type="checkbox" name="interets" value="design" /> Design UI/UX</label>
+              <label class="option-label"><input type="checkbox" name="interets" value="data" /> Data Science</label>
+              <label class="option-label"><input type="checkbox" name="interets" value="mobile" /> Mobile</label>
+              <label class="option-label"><input type="checkbox" name="interets" value="securite" /> Cybersécurité</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="bio">
+              Biographie
+              <span id="bio-counter">0 / 300</span>
+            </label>
+            <textarea
+              id="bio" name="bio"
+              maxlength="300"
+              placeholder="Parlez-nous un peu de vous..."
+              aria-describedby="bio-counter"
+              oninput="document.getElementById('bio-counter').textContent = this.value.length + ' / 300'"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="photo">Photo de profil</label>
+            <div class="file-wrapper">
+              <input
+                type="file" id="photo" name="photo"
+                accept="image/png, image/jpeg, image/webp"
+                aria-label="Choisir une photo de profil (PNG, JPG ou WebP)"
+              />
+              <p class="hint" style="margin-top:.4rem">PNG, JPG, WebP — Max 2 Mo</p>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- CGU -->
+        <div class="form-group">
+          <label class="cgu-label">
+            <input type="checkbox" name="cgu" required aria-required="true" />
+            J'accepte les <a href="#" target="_blank" rel="noopener noreferrer">conditions générales d'utilisation</a>
+            et la <a href="#" target="_blank" rel="noopener noreferrer">politique de confidentialité</a>
+            <span class="required" aria-hidden="true"> *</span>
+          </label>
+        </div>
+
+        <button type="submit" class="submit-btn">Créer mon compte →</button>
+
+      </form>
+    </div>
+  </main>
+
+  <script>
+    // Vérification que les deux mots de passe correspondent
+    const form = document.getElementById('formulaire');
+    const pwd = document.getElementById('password');
+    const pwd2 = document.getElementById('password2');
+
+    form.addEventListener('submit', function(e) {
+      if (pwd.value !== pwd2.value) {
+        e.preventDefault();
+        pwd2.setCustomValidity('Les mots de passe ne correspondent pas.');
+        pwd2.reportValidity();
+      } else {
+        pwd2.setCustomValidity('');
+      }
+    });
+
+    pwd2.addEventListener('input', function() {
+      if (pwd.value !== pwd2.value) {
+        pwd2.setCustomValidity('Les mots de passe ne correspondent pas.');
+      } else {
+        pwd2.setCustomValidity('');
+      }
+    });
+  </script>
+
+</body>
+</html>
